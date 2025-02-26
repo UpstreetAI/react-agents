@@ -100,7 +100,7 @@ export const Agent = forwardRef(({
 
   // epoch (for re-rendering)
   useEffect(() => {
-    const onepochchange = (e: MessageEvent) => {
+    const onepochchange = (e: any) => {
       setRegistryEpoch((registryEpoch) => registryEpoch + 1);
     };
     agent.addEventListener('epochchange', onepochchange);
