@@ -584,7 +584,7 @@ export type ActionProps = {
   handler?: ((e: PendingActionEvent) => void) | ((e: PendingActionEvent) => Promise<void>);
 };
 export type ActionPropsAux = ActionProps & {
-  conversation: ConversationObject;
+  conversation: ConversationObject | null;
   handler: ((e: PendingActionEvent) => void) | ((e: PendingActionEvent) => Promise<void>);
 };
 export type ActionModifierProps = {
@@ -593,7 +593,7 @@ export type ActionModifierProps = {
   priority?: number;
 };
 export type ActionModifierPropsAux = ActionModifierProps & {
-  conversation: ConversationObject;
+  conversation: ConversationObject | null;
 };
 export type PromptProps = {
   children: ReactNode;
