@@ -54,6 +54,9 @@ export const Agent = forwardRef(({
 }: AgentProps, ref: Ref<ActiveAgentObject>) => {
   // hooks
   const appContextValue = useContext(AppContext);
+  if (!appContextValue) {
+    throw new Error('AppContext is not found');
+  }
   const conversationManger = appContextValue.useConversationManager();
   const [conversations, setConversations] = useState<ConversationObject[]>([]);
   const agentRegistry = useMemo(() => new AgentRegistry(), []);
