@@ -69,28 +69,28 @@ export class AgentRegistry {
   serversMap: Map<symbol, ServerProps | null> = new Map();
 
   get actions() {
-    return Array.from(this.actionsMap.values()).filter(Boolean);
+    return Array.from(this.actionsMap.values()).filter(Boolean) as ActionPropsAux[];
   }
   get actionModifiers() {
-    return Array.from(this.actionModifiersMap.values()).filter(Boolean);
+    return Array.from(this.actionModifiersMap.values()).filter(Boolean) as ActionModifierPropsAux[];
   }
   get perceptions() {
-    return Array.from(this.perceptionsMap.values()).filter(Boolean);
+    return Array.from(this.perceptionsMap.values()).filter(Boolean) as PerceptionPropsAux[];
   }
   get uniforms() {
-    return Array.from(this.uniformsMap.values()).filter(Boolean);
+    return Array.from(this.uniformsMap.values()).filter(Boolean) as UniformPropsAux[];
   }
   get names() {
-    return Array.from(this.namesMap.values()).filter(Boolean);
+    return Array.from(this.namesMap.values()).filter(Boolean) as NameProps[];
   }
   get personalities() {
-    return Array.from(this.personalitiesMap.values()).filter(Boolean);
+    return Array.from(this.personalitiesMap.values()).filter(Boolean) as PersonalityProps[];
   }
   get storeItems() {
-    return Array.from(this.storeItemsMap.values()).filter(Boolean);
+    return Array.from(this.storeItemsMap.values()).filter(Boolean) as StoreItem[];
   }
   get servers() {
-    return Array.from(this.serversMap.values()).filter(Boolean);
+    return Array.from(this.serversMap.values()).filter(Boolean) as ServerProps[];
   }
 
   registerAction(key: symbol, action: ActionPropsAux) {
