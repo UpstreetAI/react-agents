@@ -14,6 +14,9 @@ importers:
       agent-multiplayer:
         specifier: ^0.0.8
         version: 0.0.8
+      dedent:
+        specifier: ^1.5.3
+        version: 1.5.3
       queue-manager-async:
         specifier: ^0.0.1
         version: 0.0.1

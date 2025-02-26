@@ -15,6 +15,7 @@
   "dependencies": {
     "agent-codecs": "^0.0.3",
     "agent-multiplayer": "^0.0.8",
+    "dedent": "^1.5.3",
     "queue-manager-async": "^0.0.1",
     "react": "file:./packages/react",
     "react-reconciler": "file:./packages/react-reconciler",
