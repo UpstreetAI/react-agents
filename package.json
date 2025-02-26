@@ -14,6 +14,8 @@
     "agent-codecs": "^0.0.3",
     "agent-multiplayer": "^0.0.8",
     "queue-manager-async": "^0.0.1",
-    "u8-encoder": "^0.0.5"
+    "u8-encoder": "^0.0.5",
+    "react": "file:./packages/react",
+    "react-reconciler": "file:./packages/react-reconciler"
   }
 }
