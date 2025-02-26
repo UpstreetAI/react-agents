@@ -1,4 +1,7 @@
 {
   "name": "react-agents",
-  "main": "index.tsx"
+  "main": "index.tsx",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
