@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect, useMemo, useContext } from 'react';
+import React from 'react';
 import type {
-  AgentObject,
+  AgentObjectData,
 } from '../../types';
 import {
   featureRenderers,
@@ -9,7 +9,7 @@ import {
 // defaults
 
 type ConfigAgentComponentProps = {
-  config?: AgentObject;
+  config?: AgentObjectData;
 };
 
 /**
