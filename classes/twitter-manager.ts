@@ -82,6 +82,7 @@ class TwitterBot {
       throw new Error('Twitter bot requires a jwt');
     }
 
+    this.accessToken = accessToken;
     this.refreshToken = refreshToken;
     this.clientId = clientId;
     this.agent = agent;
@@ -337,12 +338,14 @@ export class TwitterManager extends EventTarget {
   codecs: any;
   constructor({
     codecs,
+  }: {
+    codecs: any;
   }) {
     super();
 
     this.codecs = codecs;
   }
-  async addTwitterBot(args: TwitterArgs) {
+  addTwitterBot(args: TwitterArgs) {
     const twitterBot = new TwitterBot(args);
     return twitterBot;
   }

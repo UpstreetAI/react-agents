@@ -93,12 +93,10 @@ const bindOutgoing = ({
 //
 
 export class TelnyxBot extends EventTarget {
-  apiKey: string;
-  phoneNumber: string;
   message: boolean;
   voice: boolean;
   agent: ActiveAgentObject;
-  telnyxClient: TelnyxClient;
+  telnyxClient: any;
   conversations = new Map<string, ConversationObject>;
   abortController: AbortController;
   constructor(args: TelnyxBotArgs) {

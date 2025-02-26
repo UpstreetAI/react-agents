@@ -33,7 +33,7 @@ export class ConversationObject extends EventTarget {
     getHash = () => '',
     mentionsRegex = null,
   }: {
-    agent: ActiveAgentObject | null;
+    agent: ActiveAgentObject;
     agentsMap?: Map<string, Player>;
     scene?: SceneObject | null;
     getHash?: GetHashFn;
@@ -120,10 +120,10 @@ export class ConversationObject extends EventTarget {
     return this.getHash();
   }
 
-  #getAllMessages() {
+  getAllMessages() {
     return this.messageCache.getMessages();
   }
-  #getAllAgents() {
+  getAllAgents() {
     const allAgents: object[] = [
       ...Array.from(this.agentsMap.values()).map(player => player.playerSpec),
     ];
@@ -131,8 +131,8 @@ export class ConversationObject extends EventTarget {
     return allAgents;
   }
   getEmbeddingString() {
-    const allMessages = this.#getAllMessages();
-    const allAgents = this.#getAllAgents();
+    const allMessages = this.getAllMessages();
+    const allAgents = this.getAllAgents();
 
     return [
       allMessages.map(m => {

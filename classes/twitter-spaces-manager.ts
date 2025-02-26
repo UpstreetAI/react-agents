@@ -1018,12 +1018,14 @@ export class TwitterSpacesManager extends EventTarget {
   codecs: any;
   constructor({
     codecs,
+  }: {
+    codecs: any;
   }) {
     super();
 
     this.codecs = codecs;
   }
-  async addTwitterSpacesBot(args: TwitterSpacesArgs) {
+  addTwitterSpacesBot(args: TwitterSpacesArgs) {
     const twitterSpacesBot = new TwitterSpacesBot(args);
     return twitterSpacesBot;
   }

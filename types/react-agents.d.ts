@@ -315,6 +315,7 @@ export type ConversationObject = EventTarget & {
   getHash: GetHashFn;
   messageCache: MessageCache;
   numTyping: number;
+  mentionsRegex: RegExp | null;
 
   getCachedMessages: (filter?: MessageFilter) => ActionMessage[];
   /* fetchMessages: (filter?: MessageFilter, opts?: {
@@ -331,7 +332,7 @@ export type ConversationObject = EventTarget & {
   getScene: () => SceneObject | null;
   setScene: (scene: SceneObject | null) => void;
 
-  getAgent: () => ActiveAgentObject | null;
+  getAgent: () => ActiveAgentObject;
   // setAgent: (agent: ActiveAgentObject) => void;
 
   getAgents: () => Player[];
@@ -339,7 +340,14 @@ export type ConversationObject = EventTarget & {
   addAgent: (agentId: string, player: Player) => void;
   removeAgent: (agentId: string) => void;
   getKey: () => string;
+  getAllMessages(): ActionMessage[];
+  getAllAgents(): object[];
   getEmbeddingString: () => string;
+
+  formatIncomingMessageMentions(message: string): string;
+  getOutgoingMessageMentions(message: string): string[] | null;
+  formatOutgoingMessageMentions(message: string): string;
+  getIncomingMessageMentions(message: string): string[] | null;
 };
 export type ConversationManager = EventTarget<ExtendableMessageEvent<ConversationEventData>> & {
   registry: RenderRegistry;
@@ -381,6 +389,14 @@ export type ChatsManager = {
   destroy: () => void;
 };
 export type Discord = EventTarget & {
+  token: string;
+  channels: DiscordRoomSpec[];
+  dms: DiscordRoomSpec[];
+  userWhitelist: string[];
+  agent: ActiveAgentObject;
+  channelConversations: Map<string, ConversationObject>; // channelId -> conversation
+  dmConversations: Map<string, ConversationObject>; // userId -> conversation
+  abortController: AbortController;
   destroy: () => void;
 };
 export type DiscordManager = {
@@ -390,8 +406,18 @@ export type DiscordManager = {
   destroy: () => void;
 };
 export type TwitterBot = {
-  // token: string;
-  // agent: ActiveAgentObject;
+  accessToken: string;
+  refreshToken: string;
+  clientId: string;
+  abortController: AbortController;
+  agent: ActiveAgentObject;
+  kv: any;
+  codecs: any;
+  jwt: string;
+  client: TwitterClient;
+  conversations: Map<string, ConversationObject>; // tweetId -> conversation
+
+  destroy: () => void;
 };
 export type TwitterManager = {
   addTwitterBot: (args: TwitterArgs) => TwitterBot;
@@ -400,17 +426,30 @@ export type TwitterManager = {
   destroy: () => void;
 };
 export type TwitterSpacesManager = {
-  addTwitterSpacesBot: (args: TwitterSpacesArgs) => TwitterBot;
+  addTwitterSpacesBot: (args: TwitterSpacesArgs) => TwitterSpacesBot;
   removeTwitterSpacesBot: (client: TwitterSpacesBot) => void;
   live: () => void;
   destroy: () => void;
 };
 export type TwitterSpacesBot = {
-  // token: string;
-  // url?: string;
-  // agent: ActiveAgentObject;
+  token: string;
+  url: string;
+  abortController: AbortController;
+  agent: ActiveAgentObject;
+  codecs: any;
+  jwt: string;
+  conversations: Map<string, ConversationObject>; // tweetId -> conversation
+
+  destroy: () => void;
 };
 export type TelnyxBot = EventTarget & {
+  message: boolean;
+  voice: boolean;
+  agent: ActiveAgentObject;
+  telnyxClient: any;
+  conversations: Map<string, ConversationObject>;
+  abortController: AbortController;
+
   getPhoneNumber: () => string;
   call: (opts: {
     fromPhoneNumber: string,

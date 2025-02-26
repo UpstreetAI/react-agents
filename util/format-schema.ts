@@ -42,14 +42,14 @@ export const uniquifyActions = (actions: ActionPropsAux[]) => {
   }
   return Array.from(set.values());
 };
-const isAllowedAction = (action: ActionPropsAux, conversation?: ConversationObject, actOpts?: ActOpts) => {
+const isAllowedAction = (action: ActionPropsAux, conversation: ConversationObject | null, actOpts?: ActOpts) => {
   const forceAction = actOpts?.forceAction ?? null;
   const excludeActions = actOpts?.excludeActions ?? [];
   return (!action.conversation || action.conversation === conversation) &&
     (forceAction === null || action.type === forceAction) &&
     !excludeActions.includes(action.type);
 };
-const getFilteredActions = (actions: ActionPropsAux[], conversation?: ConversationObject, actOpts?: ActOpts) => {
+const getFilteredActions = (actions: ActionPropsAux[], conversation: ConversationObject | null, actOpts?: ActOpts) => {
   return actions.filter(action => isAllowedAction(action, conversation, actOpts));
 };
 const makeActionSchema = (method: string, args: z.ZodType<object> = z.object({})) => {
@@ -62,7 +62,7 @@ const formatAction = (action: ActionPropsAux) => {
   const {
     type,
     description,
-    state,
+    // state,
     examples,
   } = action;
 
@@ -84,7 +84,7 @@ const formatAction = (action: ActionPropsAux) => {
     ) : ''
   ) +
   (description ? (description + '\n') : '') +
-  (state ? (state + '\n') : '') +
+  // (state ? (state + '\n') : '') +
   (examplesJsonString
     ? (
       dedent`
@@ -209,7 +209,7 @@ export const formatReactSchema = ({
   // throw new Error('formatReactSchema not implemented');
 };
 
-export const formatActionsPrompt = (actions: ActionPropsAux[], uniforms: UniformPropsAux[], conversation?: ConversationObject, actOpts?: ActOpts) => {
+export const formatActionsPrompt = (actions: ActionPropsAux[], uniforms: UniformPropsAux[], conversation: ConversationObject | null, actOpts?: ActOpts) => {
   const actionsString = getFilteredActions(actions, conversation, actOpts)
     .map(formatAction)
     .join('\n\n');
