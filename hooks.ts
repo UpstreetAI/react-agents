@@ -32,7 +32,7 @@ import { ExtendableMessageEvent } from './util/extendable-message-event';
 // } from './util/supabase-utils.mjs';
 import {
   QueueManager,
-} from 'queue-manager';
+} from 'queue-manager-async';
 import {
   aiProxyHost,
 } from './util/endpoints.mjs';
