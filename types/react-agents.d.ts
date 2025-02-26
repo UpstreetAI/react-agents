@@ -341,7 +341,7 @@ export type ConversationObject = EventTarget & {
   getKey: () => string;
   getEmbeddingString: () => string;
 };
-export type ConversationManager = EventTarget & {
+export type ConversationManager = EventTarget<ExtendableMessageEvent<ConversationEventData>> & {
   registry: RenderRegistry;
   conversations: Set<ConversationObject>;
   loadedConversations: WeakMap<ConversationObject, boolean>;
