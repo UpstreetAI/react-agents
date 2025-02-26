@@ -17,7 +17,7 @@ import { AudioDecodeStream } from 'codecs/audio-decode.mjs';
 import { formatConversationMessage } from '../util/message-utils';
 import {
   QueueManager,
-} from 'queue-manager';
+} from 'queue-manager-async';
 import {
   AudioMerger,
 } from '../util/audio-merger.mjs';

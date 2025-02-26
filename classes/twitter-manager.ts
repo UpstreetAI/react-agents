@@ -19,7 +19,7 @@ import {
 } from '../runtime';
 import {
   QueueManager,
-} from 'queue-manager';
+} from 'queue-manager-async';
 // import uuidByString from 'uuid-by-string';
 import { Player } from 'react-agents-client/util/player.mjs';
 
