@@ -26,6 +26,12 @@ importers:
       u8-encoder:
         specifier: ^0.0.5
         version: 0.0.5
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
+      zod-to-ts:
+        specifier: ^1.2.0
+        version: 1.2.0(typescript@5.7.3)(zod@3.24.2)
     devDependencies:
       '@jest/globals':
         specifier: ^29.7.0
@@ -1228,6 +1234,15 @@ packages:
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  zod-to-ts@1.2.0:
+    resolution: {integrity: sha512-x30XE43V+InwGpvTySRNz9kB7qFU8DlyEy7BsSTCHPH1R0QasMmHWZDCzYm6bVXtj/9NNJAZF3jW8rzFvH5OFA==}
+    peerDependencies:
+      typescript: ^4.9.4 || ^5.0.2
+      zod: ^3
+
+  zod@3.24.2:
+    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
 snapshots:
 
@@ -2675,3 +2690,10 @@ snapshots:
       lib0: 0.2.99
 
   yocto-queue@0.1.0: {}
+
+  zod-to-ts@1.2.0(typescript@5.7.3)(zod@3.24.2):
+    dependencies:
+      typescript: 5.7.3
+      zod: 3.24.2
+
+  zod@3.24.2: {}
