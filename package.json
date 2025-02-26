@@ -1,7 +1,19 @@
 {
   "name": "react-agents",
   "main": "index.tsx",
+  "type": "module",
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
-    "jest": "^29.7.0"
+    "@jest/globals": "^29.7.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.6"
+  },
+  "dependencies": {
+    "agent-codecs": "^0.0.3",
+    "agent-multiplayer": "^0.0.8",
+    "queue-manager-async": "^0.0.1",
+    "u8-encoder": "^0.0.5"
   }
 }
