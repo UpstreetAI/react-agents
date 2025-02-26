@@ -3,7 +3,7 @@ import type { ZodTypeAny } from 'zod';
 
 // intrinsics
 
-declare global {
+declare module "react" {
   namespace JSX {
     interface IntrinsicElements {
       agent: any;
