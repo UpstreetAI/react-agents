@@ -19,6 +19,10 @@ export const Action: React.FC<ActionProps> = (props: ActionProps) => {
   const symbol = useMemo(Symbol, []);
   const conversation = useContext(ConversationContext).conversation;
 
+  if (!agent) {
+    throw new Error('Agent is not found');
+  }
+
   // default handler just commits the event
   const handler = props.handler ?? (async (e: PendingActionEvent) => {
     e.commit();
@@ -56,6 +60,10 @@ export const ActionModifier = /*memo(*/(props: ActionModifierProps) => {
   const agentRegistry = useContext(AgentRegistryContext).agentRegistry;
   const symbol = useMemo(Symbol, []);
   const conversation = useContext(ConversationContext).conversation;
+
+  if (!agent) {
+    throw new Error('Agent is not found');
+  }
 
   const deps = [
     props.type,
