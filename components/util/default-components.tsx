@@ -120,6 +120,11 @@ const CharactersPrompt = () => {
   const agent = useAgent();
   const name = useName();
   const bio = usePersonality();
+
+  if (!agent) {
+    throw new Error('No agent found');
+  }
+
   if (conversation) {
     const agents = conversation.getAgents();
     const currentAgentSpec = {
@@ -196,6 +201,11 @@ const ActionsPrompt = () => {
 const StoreItemsPrompt = () => {
   const agent = useAgent();
   const storeItems = useStoreItems();
+
+  if (!agent) {
+    throw new Error('No agent found');
+  }
+
   return !!agent.stripeConnectAccountId && storeItems.length > 0 && (
     <Prompt>
       {dedent`\
@@ -255,7 +265,7 @@ const CachedMessagesPrompt = () => {
   const cachedMessages = useCachedMessages();
 
   const formatAttachments = (attachments?: Attachment[]) => {
-    if (attachments?.length > 0) {
+    if (attachments && attachments.length > 0) {
       return attachments.map((attachment) => formatAttachment(attachment));
     } else {
       return undefined;
@@ -313,6 +323,10 @@ const CachedMessagesPrompt = () => {
 };
 const InstructionsPrompt = () => {
   const agent = useAgent();
+
+  if (!agent) {
+    throw new Error('No agent found');
+  }
 
   return (
     <Prompt>
