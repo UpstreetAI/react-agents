@@ -3,12 +3,15 @@ export default {
   preset: "ts-jest",
   // Set the test environment
   testEnvironment: "node",
-  // Configure ts-jest to use ESM
+  // Configure ts-jest to use ESM and handle JSX
   transform: {
     "^.+\\.tsx?$": [
       "ts-jest",
       {
         useESM: true,
+        tsconfig: {
+          jsx: "react-jsx", // Explicitly set JSX in tsconfig override
+        },
       },
     ],
   },
