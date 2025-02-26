@@ -1,5 +1,16 @@
 {
   "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "node",
     "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "strict": true,
+    "target": "ES2020",
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
   }
 }
