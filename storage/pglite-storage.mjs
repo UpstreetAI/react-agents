@@ -2,7 +2,7 @@ import { PostgrestClient } from '@supabase/postgrest-js';
 import { PGlite } from '@electric-sql/pglite';
 import { vector } from '@electric-sql/pglite/vector';
 import dedent from 'dedent';
-import { QueueManager } from 'queue-manager';
+import { QueueManager } from 'queue-manager-async';
 
 const defaultSchema = 'public';
 
