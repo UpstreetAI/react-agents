@@ -36,7 +36,7 @@ import {
 import {
   aiProxyHost,
 } from './util/endpoints.mjs';
-import { getStripeDevSuffix } from 'react-agents/util/stripe-utils.mjs';
+import { getStripeDevSuffix } from './util/stripe-utils.mjs';
 import {
   FetchHttpClient,
 } from './util/stripe/net/FetchHttpClient';
