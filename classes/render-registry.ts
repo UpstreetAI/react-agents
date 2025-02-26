@@ -127,7 +127,7 @@ export class AgentRegistry {
   unregisterPerception(key: symbol) {
     this.perceptionsMap.set(key, null);
   }
-  registerUniform(key: symbol, uniform: ActionPropsAux) {
+  registerUniform(key: symbol, uniform: UniformPropsAux) {
     if (!uniform.conversation) {
       this.uniformsMap.set(key, uniform);
     } else {
