@@ -82,7 +82,7 @@ export type ActOpts = {
   excludeActions?: string[];
 };
 export type ActionStep = {
-  action?: PendingActionMessage,
+  action: PendingActionMessage,
   uniforms?: {
     [key: string]: object,
   },

@@ -361,7 +361,7 @@ export async function executeAgentActionStep(
         agent: generativeAgent,
         message,
       });
-      if (message) {
+      if (message && modifier.handler) {
         await modifier.handler(e);
       }
       return e;
@@ -380,7 +380,9 @@ export async function executeAgentActionStep(
                 args,
               },
             });
-            await modifier.handler(e);
+            if (modifier.handler) {
+              await modifier.handler(e);
+            }
             return e;
           }
         }
