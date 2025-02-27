@@ -1,3 +1,6 @@
+import type {
+  ActionMessage,
+} from '../types';
 import {
   lembed,
 } from './embedding.mjs';
@@ -8,6 +11,12 @@ export async function saveMessageToDatabase({
   userId,
   conversationId,
   message,
+}: {
+  supabase: any,
+  jwt: string,
+  userId: string,
+  conversationId: string,
+  message: ActionMessage,
 }) {
   const encodedMessage = await encodeMessage(message, jwt, userId, conversationId);
   const { error } = await supabase
@@ -20,7 +29,12 @@ export async function saveMessageToDatabase({
   }
 }
 
-async function encodeMessage(message, jwt, userId, conversationId) {
+async function encodeMessage(
+  message: ActionMessage,
+  jwt: string,
+  userId: string,
+  conversationId: string,
+) {
   const embedding = await lembed(JSON.stringify({
     method: message.method,
     args: message.args,
