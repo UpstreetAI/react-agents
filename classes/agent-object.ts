@@ -1,18 +1,18 @@
 import { AgentObjectData } from '../types';
 
 export class AgentObject extends EventTarget {
-  id: string;
-  ownerId: string;
-  name: string;
-  description: string;
-  bio: string;
-  previewUrl: string;
-  model: string;
-  smallModel: string;
-  largeModel: string;
-  features: string[];
-  address: string;
-  stripeConnectAccountId: string;
+  id?: string;
+  ownerId?: string;
+  name?: string;
+  description?: string;
+  bio?: string;
+  previewUrl?: string;
+  model?: string;
+  smallModel?: string;
+  largeModel?: string;
+  features?: string[];
+  address?: string;
+  stripeConnectAccountId?: string;
 
   constructor(config: AgentObjectData) {
     super();
