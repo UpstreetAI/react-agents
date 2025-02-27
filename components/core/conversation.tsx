@@ -26,6 +26,11 @@ const ConversationInstance = (props: ConversationInstanceProps) => {
 export const ConversationProvider = (props: ConversationProps) => {
   const agent = useContext(AgentContext);
   const conversations = useContext(ConversationsContext).conversations;
+
+  if (!agent) {
+    throw new Error('ConversationProvider must be used within an AgentProvider');
+  }
+  
   return conversations.map((conversation) => {
     return (
       <ConversationInstance
@@ -41,6 +46,9 @@ export const ConversationProvider = (props: ConversationProps) => {
 // use this to defer rendering until the conversation is actually used
 export const DeferConversation = (props: DeferProps) => {
   const appContextValue = useContext(AppContext);
+  if (!appContextValue) {
+    throw new Error('DeferConversation must be used within an AppProvider');
+  }
   const conversationManager = appContextValue.useConversationManager();
   const agentRegistry = useContext(AgentRegistryContext).agentRegistry;
   const conversation = useContext(ConversationContext).conversation;
