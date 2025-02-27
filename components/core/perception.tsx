@@ -14,6 +14,10 @@ export const Perception = /*memo(*/(props: PerceptionProps) => {
   const symbol = useMemo(Symbol, []);
   const conversation = useContext(ConversationContext).conversation;
 
+  if (!agent) {
+    throw new Error('Agent not found');
+  }
+
   const deps = [
     props.type,
     props.handler.toString(),
