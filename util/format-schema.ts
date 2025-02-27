@@ -2,19 +2,8 @@ import { z } from 'zod';
 import dedent from 'dedent';
 import type { ZodTypeAny } from 'zod';
 import {
-  ChatMessages,
-  PendingActionMessage,
-  ActiveAgentObject,
-  GenerativeAgentObject,
-  ActionMessage,
-  ActionProps,
-  ActionMessageEvent,
-  ActionMessageEventData,
   ConversationObject,
-  // TaskEventData,
   ActOpts,
-  DebugOptions,
-  ActionStep,
   ActionPropsAux,
   UniformPropsAux,
 } from '../types';
@@ -112,7 +101,7 @@ export const formatBasicSchema = ({
 }: {
   actions: ActionPropsAux[],
   uniforms: UniformPropsAux[],
-  conversation?: ConversationObject,
+  conversation: ConversationObject | null,
   actOpts?: ActOpts,
 }) => {
   const makeUnionSchema = (actions: ActionPropsAux[]) => {
@@ -134,7 +123,7 @@ export const formatBasicSchema = ({
   const makeObjectSchema = (uniforms: ActionPropsAux[]) => {
     const filteredUniforms = getFilteredActions(uniforms, conversation, actOpts);
     if (filteredUniforms.length > 0) {
-      const o = {};
+      const o: Record<string, ZodTypeAny> = {};
       for (const uniform of filteredUniforms) {
         o[uniform.type] = uniform.schema;
         // console.log('set uniform', uniform.name, printNode(zodToTs(uniform.schema).node));
@@ -146,7 +135,7 @@ export const formatBasicSchema = ({
   };
   const actionSchema = makeUnionSchema(actions);
   const uniformsSchema = makeObjectSchema(uniforms);
-  const o = {};
+  const o: Record<string, ZodTypeAny> = {};
   if (actionSchema) {
     o['action'] = actionSchema;
   }
@@ -164,7 +153,7 @@ export const formatReactSchema = ({
 }: {
   actions: ActionPropsAux[],
   uniforms: UniformPropsAux[],
-  conversation?: ConversationObject,
+  conversation: ConversationObject | null,
   actOpts?: ActOpts,
 }) => {
   const makeUnionSchema = (actions: ActionPropsAux[]) => {
@@ -184,7 +173,7 @@ export const formatReactSchema = ({
   const makeObjectSchema = (uniforms: ActionPropsAux[]) => {
     const filteredUniforms = getFilteredActions(uniforms, conversation, actOpts);
     if (filteredUniforms.length > 0) {
-      const o = {};
+      const o: Record<string, ZodTypeAny> = {};
       for (const uniform of filteredUniforms) {
         o[uniform.type] = uniform.schema;
         // console.log('set uniform', uniform.name, printNode(zodToTs(uniform.schema).node));
@@ -196,7 +185,7 @@ export const formatReactSchema = ({
   };
   const actionSchema = makeUnionSchema(actions);
   const uniformsSchema = makeObjectSchema(uniforms);
-  const o = {};
+  const o: Record<string, ZodTypeAny> = {};
   o['observation'] = z.string();
   o['thought'] = z.string();
   if (actionSchema) {
