@@ -176,7 +176,8 @@ export const useCachedMessages = (opts?: ActionHistoryQuery) => {
 
   useEffect(() => {
     if (conversation) {
-      const update = (e: ExtendableMessageEvent<MessageCacheUpdateArgs>) => {
+      const update = (_e: Event) => {
+        const e = _e as ExtendableMessageEvent<MessageCacheUpdateArgs>;
         setCachedMessagesEpoch(cachedMessagesEpoch => cachedMessagesEpoch + 1);
     
         // wait for re-render before returning from the handler

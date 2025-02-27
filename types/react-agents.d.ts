@@ -294,7 +294,7 @@ export type Debouncer = EventTarget & {
   waitForTurn: (fn: () => Promise<any>) => Promise<void>;
 };
 
-export type MessageCache = EventTarget<ExtendableMessageEvent<MessageCacheUpdateArgs>> & {
+export type MessageCache = EventTarget & {
   getMessages(): ActionMessage[];
   pushMessage(message: ActionMessage): Promise<void>;
   // prependMessages(messages: ActionMessage[]): Promise<void>;
@@ -349,7 +349,7 @@ export type ConversationObject = EventTarget & {
   formatOutgoingMessageMentions(message: string): string;
   getIncomingMessageMentions(message: string): string[] | null;
 };
-export type ConversationManager = EventTarget<ExtendableMessageEvent<ConversationEventData>> & {
+export type ConversationManager = EventTarget & {
   registry: RenderRegistry;
   conversations: Set<ConversationObject>;
   loadedConversations: WeakMap<ConversationObject, boolean>;

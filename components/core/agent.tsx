@@ -81,7 +81,8 @@ export const Agent = forwardRef(({
 
   // wait for re-render on conversations change
   useEffect(() => {
-    const updateConversations = (e: ExtendableMessageEvent<ConversationEventData>) => {
+    const updateConversations = (_e: Event) => {
+      const e = _e as ExtendableMessageEvent<ConversationEventData>;
       setConversations(() => conversationManger.getConversations());
 
       // wait for re-render before returning from the handler

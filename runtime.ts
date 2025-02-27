@@ -489,7 +489,8 @@ export const bindConversationToAgent = ({
   conversation: ConversationObject;
 }) => {
   // handle incoming perceptions
-  conversation.addEventListener('localmessage', (e: ActionMessageEvent) => {
+  conversation.addEventListener('localmessage', (_e: Event) => {
+    const e = _e as ActionMessageEvent;
     const { message } = e.data;
     e.waitUntil((async () => {
       try {
@@ -523,7 +524,8 @@ export const bindConversationToAgent = ({
     })());
   });
   // handle committed messages
-  conversation.addEventListener('remotemessage', async (e: ExtendableMessageEvent<ActionMessageEventData>) => {
+  conversation.addEventListener('remotemessage', async (_e: Event) => {
+    const e = _e as ExtendableMessageEvent<ActionMessageEventData>;
     const { message } = e.data;
     const {
       hidden,
