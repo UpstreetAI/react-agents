@@ -10,6 +10,9 @@ export const ChatLoop = (props: LoopProps) => {
   }
 
   const agent = useAgent();
+  if (!agent) {
+    throw new Error('Agent not found');
+  }
   const hint = props.hint;
   const actOpts = props.actOpts;
   const debugOpts = {
