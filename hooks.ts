@@ -258,14 +258,21 @@ export const useStripe = () => {
   const environment = useEnvironment();
   const authToken = useAuthToken();
 
-  const customFetchFn = async (url: string, options: any) => {
-    const u = new URL(url);
+  const customFetchFn = async (input: URL | Request | string, options: any) => {
+    let u: URL;
+    if (typeof input === 'string') {
+      u = new URL(input);
+    } else if (input instanceof URL) {
+      u = input;
+    } else {
+      u = new URL(input.url);
+    }
     // redirect to the ai proxy host
     u.host = aiProxyHost;
     // prefix the path with /api/stripe
     const stripeDevSuffix = getStripeDevSuffix(environment);
     u.pathname = `/api/stripe${stripeDevSuffix}${u.pathname}`;
-    return fetch(u.toString(), {
+    return fetch(u, {
       ...options,
       headers: {
         ...options.headers,
