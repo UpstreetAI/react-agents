@@ -110,7 +110,7 @@ export async function generateAgentActionStep({
       content: promptString,
     },
   ];
-  if (debugOpts?.debug >= debugLevels.DEBUG) {
+  if ((debugOpts?.debug ?? debugLevels.NONE) >= debugLevels.DEBUG) {
     console.info('prompt: ' + generativeAgent.agent.name + ':\n' + promptString);
   }
   // perform inference
@@ -169,10 +169,10 @@ async function _generateAgentActionStepFromMessages({
     const observation = (completionMessage.content as any).observation as string | null;
     const thought = (completionMessage.content as any).thought as string | null;
     const action = (completionMessage.content as any).action as PendingActionMessage | null;
-    const uniformObject = (completionMessage.content as any).uniforms as object | null;
+    const uniformObject = (completionMessage.content as any).uniforms as Record<string, any> | null;
 
     // logging
-    if (debugOpts?.debug >= debugLevels.INFO) {
+    if ((debugOpts?.debug ?? debugLevels.NONE) >= debugLevels.INFO) {
       if (observation) {
         console.info(`[•observation: ${generativeAgent.agent.name}: ${observation}]`);
       }
@@ -180,7 +180,7 @@ async function _generateAgentActionStepFromMessages({
         console.info(`[•thought: ${generativeAgent.agent.name}: ${thought}]`);
       }
     }
-    if (debugOpts?.debug >= debugLevels.INFO) {
+    if ((debugOpts?.debug ?? debugLevels.NONE) >= debugLevels.INFO) {
       if (action !== null) {
         const jsonString = [
           generativeAgent.agent.name,
@@ -208,7 +208,7 @@ async function _generateAgentActionStepFromMessages({
             });
             const parsedMessage = actionSchema.parse(action);
             result.action = action;
-          } catch (err) {
+          } catch (err: any) {
             console.warn('zod schema action parse error: ' + JSON.stringify(action) + '\n' + JSON.stringify(err.issues));
           }
         }
@@ -238,7 +238,7 @@ async function _generateAgentActionStepFromMessages({
                 args,
               });
               uniformsResult[method] = args;
-            } catch (err) {
+            } catch (err: any) {
               console.warn('zod schema uniform parse error: ' + JSON.stringify(args) + '\n' + JSON.stringify(err.issues));
             }
           }
@@ -265,7 +265,7 @@ async function _generateAgentActionStepFromMessages({
 
 interface PriorityModifier {
   type: string;
-  conversation?: ConversationObject;
+  conversation: ConversationObject | null;
   priority?: number;
   handler?: ((e: any) => Promise<void>) | ((e: any) => void);
 }
@@ -286,7 +286,7 @@ export const collectPriorityModifiers = <T extends PriorityModifier>(modifiers: 
 };
 export const filterModifiersPerConversation = <T extends PriorityModifier>(
   modifiers: Array<[number, T[]]>, 
-  conversation: ConversationObject | null
+  conversation: ConversationObject | null,
 ) => {
   return modifiers.map(([priority, modifiersArray]) => [
     priority,
