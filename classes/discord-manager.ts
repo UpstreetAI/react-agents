@@ -19,7 +19,7 @@ import {
 } from '../runtime';
 import {
   QueueManager,
-} from 'queue-manager';
+} from 'queue-manager-async';
 
 //
 
