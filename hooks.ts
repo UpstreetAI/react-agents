@@ -262,6 +262,9 @@ export const useStripe = () => {
     throw new Error('No agent found');
   }
   const { stripeConnectAccountId } = agent;
+  if (!stripeConnectAccountId) {
+    throw new Error('No stripe connect account id found');
+  }
 
   const customFetchFn = async (input: URL | Request | string, options: any) => {
     let u: URL;
