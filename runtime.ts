@@ -389,6 +389,9 @@ export async function executeAgentActionStep(
       }
     };
   };
+  const makeUniformHandlers = (modifiers: Array<PriorityModifier>) => {
+    return modifiers.map(makeUniformHandler).filter(Boolean) as Array<() => Promise<AbortableMessageEvent<PendingActionEventData>>>;
+  };
   const actionsHandlers : [
     number,
     Array<() => Promise<AbortableMessageEvent<PendingActionEventData>>>
@@ -408,7 +411,7 @@ export async function executeAgentActionStep(
     Array<() => Promise<AbortableMessageEvent<PendingActionEventData>>>
   ][] = uniformsPerPriority.map(([priority, uniforms]) => [
     priority,
-    uniforms.map(makeUniformHandler),
+    makeUniformHandlers(uniforms),
   ]);
   const handlersPerPriority = mergePriorityHandlers([
     ...actionsHandlers,
