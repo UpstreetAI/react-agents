@@ -254,9 +254,14 @@ export const useTts: (opts?: TtsArgs) => Tts = (opts) => {
 };
 
 export const useStripe = () => {
-  const { stripeConnectAccountId } = useAgent();
+  const agent = useAgent();
   const environment = useEnvironment();
   const authToken = useAuthToken();
+
+  if (!agent) {
+    throw new Error('No agent found');
+  }
+  const { stripeConnectAccountId } = agent;
 
   const customFetchFn = async (input: URL | Request | string, options: any) => {
     let u: URL;
