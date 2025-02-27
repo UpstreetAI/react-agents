@@ -10,7 +10,7 @@ export class AgentObject extends EventTarget {
   model?: string;
   smallModel?: string;
   largeModel?: string;
-  features?: string[];
+  features?: Record<string, any>;
   address?: string;
   stripeConnectAccountId?: string;
 
