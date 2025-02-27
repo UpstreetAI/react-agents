@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 // import { z } from 'zod';
 // import dedent from 'dedent';
 import { TTS } from '../components/plugins/tts';
@@ -276,7 +276,7 @@ import { Telnyx } from '../components/plugins/telnyx';
     },
   },
 ]; */
-export const featureRenderers = {
+export const featureRenderers: Record<string, (props: any) => ReactNode> = {
   tts: ({voiceEndpoint}) => {
     return (
       <TTS voiceEndpoint={voiceEndpoint} />
