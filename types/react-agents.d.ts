@@ -294,7 +294,7 @@ export type Debouncer = EventTarget & {
   waitForTurn: (fn: () => Promise<any>) => Promise<void>;
 };
 
-export type MessageCache = EventTarget & {
+export type MessageCache = EventTarget<ExtendableMessageEvent<MessageCacheUpdateArgs>> & {
   getMessages(): ActionMessage[];
   pushMessage(message: ActionMessage): Promise<void>;
   // prependMessages(messages: ActionMessage[]): Promise<void>;
@@ -807,7 +807,7 @@ export type AppContextValue = {
   useRegistry: () => RenderRegistry;
 
   useKv: (opts?: KvArgs) => Kv;
-  useTts: (ttsArgs: TtsArgs) => Tts;
+  useTts: (ttsArgs?: TtsArgs) => Tts;
 
   embed: (text: string) => Promise<Array<number>>;
   complete: (
