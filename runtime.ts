@@ -29,7 +29,7 @@ import {
 } from './util/extendable-message-event';
 import {
   saveMessageToDatabase,
-} from './util/saveMessageToDatabase.js';
+} from './util/saveMessageToDatabase';
 import {
   uniquifyActions,
   formatBasicSchema,
@@ -508,7 +508,7 @@ export const bindConversationToAgent = ({
             await saveMessageToDatabase({
               supabase,
               jwt,
-              userId: agent.id,
+              userId: agent.id as string,
               conversationId: conversation.getKey(),
               message,
             });
@@ -534,7 +534,7 @@ export const bindConversationToAgent = ({
         await saveMessageToDatabase({
           supabase,
           jwt,
-          userId: agent.id,
+          userId: agent.id as string,
           conversationId: conversation.getKey(),
           message,
         });
