@@ -6,7 +6,7 @@ import {
   uint8ArrayToBase64,
   base64ToUint8Array,
 } from '../util/util.mjs';
-import { zbdecode, zbencode } from 'zjs';
+import * as u8 from 'u8-encoder';
 
 export class Kv<T> {
   #agent: ActiveAgentObject;
@@ -49,7 +49,7 @@ export class Kv<T> {
       if (data) {
         const base64Data = data.value as string;
         const encodedData = base64ToUint8Array(base64Data);
-        const value = zbdecode(encodedData);
+        const value = u8.decode(encodedData);
         return value;
       } else {
         return typeof defaultValue === 'function' ? defaultValue() : defaultValue;
@@ -72,7 +72,7 @@ export class Kv<T> {
 
   async get<T>(key: string, defaultValue?: T | (() => T)) {
     const loadPromise = this.ensureLoadPromise(key, defaultValue);
-    return await loadPromise as T | undefined;
+    return await loadPromise as T;
   }
   async set<T>(key: string, value: T | ((oldValue: T | undefined) => T)) {
     const fullKey = this.getFullKey(key);
@@ -84,7 +84,7 @@ export class Kv<T> {
     }
 
     const newLoadPromise = Promise.resolve(value);
-    const encodedData = zbencode(value);
+    const encodedData = u8.encode(value);
     const base64Data = uint8ArrayToBase64(encodedData);
 
     this.kvLoadPromises.set(key, newLoadPromise);
