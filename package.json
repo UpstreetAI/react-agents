@@ -17,6 +17,7 @@
     "agent-codecs": "^0.0.3",
     "agent-multiplayer": "^0.0.8",
     "dedent": "^1.5.3",
+    "javascript-time-ago": "^2.5.11",
     "memoize-one": "^6.0.0",
     "queue-manager-async": "^0.0.2",
     "react": "file:./packages/react",
