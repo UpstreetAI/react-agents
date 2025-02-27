@@ -47,12 +47,18 @@ import {
 // note: this contains keys and must not be exposed to the user (such as by including it in prompts)
 export const useEnv: () => object = () => {
   const appContextValue = useContext(AppContext);
+  if (!appContextValue) {
+    throw new Error('No app context found');
+  }
   return appContextValue.useEnv();
 };
 // get the 'development' or 'production' environment variable
 // not to be confused with useEnv()
 export const useEnvironment: () => string = () => {
-  const appContextValue = useContext(AppContext);
+  const appContextValue = useContext(AppContext)
+  if (!appContextValue) {
+    throw new Error('No app context found');
+  }
   return appContextValue.useEnvironment();
 };
 // get the agent's authentication token
@@ -60,20 +66,32 @@ export const useEnvironment: () => string = () => {
 // not to be confused with useEnv()
 export const useAuthToken: () => string = () => {
   const appContextValue = useContext(AppContext);
+  if (!appContextValue) {
+    throw new Error('No app context found');
+  }
   return appContextValue.useAuthToken();
 };
 export const useConfig: () => any = () => {
   const appContextValue = useContext(AppContext);
+  if (!appContextValue) {
+    throw new Error('No app context found');
+  }
   return appContextValue.useConfig();
 };
 // get the passed-down agent initialization json
 export const useInit: () => any = () => {
   const appContextValue = useContext(AppContext);
+  if (!appContextValue) {
+    throw new Error('No app context found');
+  }
   return appContextValue.useInit();
 };
 // get the passed-down agent debug flag
 export const useDebug: () => number = () => {
   const appContextValue = useContext(AppContext);
+  if (!appContextValue) {
+    throw new Error('No app context found');
+  }
   return appContextValue.useDebug();
 };
 
@@ -85,6 +103,9 @@ export const useAgent = () => {
 };
 export const useSupabase = () => {
   const agentContextValue = useContext(AgentContext);
+  if (!agentContextValue) {
+    throw new Error('No agent context found');
+  }
   return agentContextValue.appContextValue.useSupabase();
 };
 export const useConversations = () => {
@@ -112,14 +133,24 @@ export const useUniforms: () => Array<UniformPropsAux> = () => {
 export const useName: () => string = () => {
   const agent = useContext(AgentContext);
   const agentRegistryValue = useContext(AgentRegistryContext).agentRegistry;
+
+  if (!agent) {
+    throw new Error('No agent found');
+  }
+
   const names = agentRegistryValue.names;
-  return names.length > 0 ? names[0].children : agent.name;
+  return (names.length > 0 ? names[0].children : agent.name) || '';
 };
 export const usePersonality: () => string = () => {
   const agent = useContext(AgentContext);
   const agentRegistryValue = useContext(AgentRegistryContext).agentRegistry;
   const personalities = agentRegistryValue.personalities;
-  return personalities.length > 0 ? personalities[0].children : agent.bio;
+
+  if (!agent) {
+    throw new Error('No agent found');
+  }
+
+  return (personalities.length > 0 ? personalities[0].children : agent.bio) || '';
 };
 
 export const useCachedMessages = (opts?: ActionHistoryQuery) => {
@@ -127,6 +158,9 @@ export const useCachedMessages = (opts?: ActionHistoryQuery) => {
   const conversation = useConversation();
   const [cachedMessagesEpoch, setCachedMessagesEpoch] = useState(0);
 
+  if (!agent) {
+    throw new Error('No agent found');
+  }
   if (!conversation) {
     throw new Error('useCachedMessages() can only be used within a conversation context');
   }
@@ -203,12 +237,18 @@ export const useMessageFetch = (opts?: ActionHistoryQuery) => {
 
 export const useKv = (opts?: KvArgs) => {
   const appContextValue = useContext(AppContext);
+  if (!appContextValue) {
+    throw new Error('No app context found');
+  }
   return appContextValue.useKv(opts);
 };
 
 export const useTts: (opts?: TtsArgs) => Tts = (opts) => {
   return memoizeOne((voiceEndpoint?: string, sampleRate?: number) => {
     const appContextValue = useContext(AppContext);
+    if (!appContextValue) {
+      throw new Error('No app context found');
+    }
     return appContextValue.useTts(opts);
   })(opts?.voiceEndpoint, opts?.sampleRate);
 };
@@ -265,6 +305,11 @@ const makeAgentWebhooksState = (): AgentWebhooksState => ({
 const agentWebhooksStateKey = 'agentWebhooksState';
 export const usePurchases = () => {
   const agent = useAgent();
+
+  if (!agent) {
+    throw new Error('No agent found');
+  }
+
   const agentId = agent.id;
   const ownerId = agent.ownerId;
   const supabase = agent.useSupabase();
