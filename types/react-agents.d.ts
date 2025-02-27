@@ -652,7 +652,7 @@ export type PerceptionPropsAux = PerceptionProps & {
 export type UniformProps = {
   type: string;
   description: string;
-  state?: string;
+  // state?: string;
   schema: ZodTypeAny;
   examples: Array<object>,
   priority?: number;
