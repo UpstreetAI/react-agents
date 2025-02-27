@@ -646,7 +646,7 @@ export type PerceptionProps = {
   handler: ((e: AbortablePerceptionEvent) => void) | ((e: AbortablePerceptionEvent) => Promise<void>);
 };
 export type PerceptionPropsAux = PerceptionProps & {
-  conversation: ConversationObject;
+  conversation: ConversationObject | null;
   priority?: number;
 };
 export type UniformProps = {
@@ -659,14 +659,14 @@ export type UniformProps = {
   handler: ((e: ActionEvent) => void) | ((e: ActionEvent) => Promise<void>);
 };
 export type UniformPropsAux = UniformProps & {
-  conversation: ConversationObject;
+  conversation: ConversationObject | null;
   priority?: number;
 };
 export type DeferProps = {
   children: ReactNode;
 };
 export type DeferPropsAux = DeferProps & {
-  conversation?: ConversationObject;
+  conversation: ConversationObject | null;
 };
 
 //
